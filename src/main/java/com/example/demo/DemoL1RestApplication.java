@@ -28,33 +28,41 @@ public class DemoL1RestApplication {
 	@Bean
 	public CommandLineRunner demo(MessageRepository messageRepository, UserRepository userRepository){
 		return (args) -> {
-			messageRepository.save(new Message("text1",new Date()));
-			messageRepository.save(new Message("text2",new Date()));
-			messageRepository.save(new Message("text3",new Date()));
-
-			// fetch all messages
-			log.info("Messages ");
-			log.info("-------------------------------");
-			for (Message mesg : messageRepository.findAll()) {
-				log.info(mesg.toString());
-			}
-			log.info("");
 
 			User user1 = new User();
 			user1.setName("name1");
 
 			Message m1 = new Message();
-			m1.setText("text1");
+			m1.setText("message1");
+			m1.setTime(new Date());
+
+			Message m2 = new Message();
+			m2.setText("message2");
+			m2.setTime(new Date());
 
 			Set<Message> messageList = new HashSet<>();
 			messageList.add(m1);
+			messageList.add(m2);
 
 			user1.setMessageList(messageList);
 
 			userRepository.save(user1);
 
+			//USER 2
 
+			User user2 = new User();
+			user2.setName("name2");
 
+			Message m3 = new Message();
+			m3.setText("message3");
+			m3.setTime(new Date());
+
+			messageList = new HashSet<>();
+			messageList.add(m3);
+
+			user2.setMessageList(messageList);
+
+			userRepository.save(user2);
 
 		};
 	}
